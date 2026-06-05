@@ -295,7 +295,7 @@ async function initAgenda() {
         }
       } else if (jogo.status === "agendado") {
         statusClass = "status-agendado";
-        statusLabel = isFuturo ? "Confirmado" : "Aguardando";
+        statusLabel = isFuturo ? "Confirmado" : "Aguardando Resultado";
       } else if (jogo.status === "cancelado") {
         statusClass = "status-cancelado";
         statusLabel = "Cancelado";

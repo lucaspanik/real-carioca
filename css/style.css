@@ -675,7 +675,7 @@ h2 em {
   padding: 4px 12px;
   border-radius: 100px;
 }
-.status-agendado  { background: rgba(30,111,255,0.15); color: var(--azul-light); border: 1px solid rgba(30,111,255,0.3); }
+.status-agendado  { background: rgba(30,111,255,0.15); /*color: var(--azul-light); */ color: darkgray; border: 1px solid rgba(30,111,255,0.3); }
 .status-realizado { background: rgba(192,164,75,0.1); color: var(--gold); border: 1px solid rgba(192,164,75,0.25); }
 .status-cancelado { background: rgba(200,50,50,0.1); color: #E07070; border: 1px solid rgba(200,50,50,0.25); }
 
