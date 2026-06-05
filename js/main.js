@@ -364,14 +364,25 @@ function initForm() {
   const dataInput = document.getElementById("data");
   if (dataInput) dataInput.min = new Date().toISOString().split("T")[0];
 
+  let turnstileOk = false;
+
+  window.onTurnstileSuccess = () => { turnstileOk = true; };
+  window.onTurnstileError   = () => { turnstileOk = false; };
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const action = form.getAttribute("action");
-    if (action.includes("SEU_ID_AQUI")) {
-      alert("⚠️ Configure o Formspree!\n\n1. Acesse formspree.io\n2. Crie um novo form\n3. Substitua 'SEU_ID_AQUI' no index.html pelo ID gerado");
+    if (!turnstileOk) {
+      alert("Por favor, confirme que você não é um robô.");
       return;
     }
+
+    const action = form.getAttribute("action");
+
+    /*if (action.includes("SEU_ID_AQUI")) {
+      alert("⚠️ Configure o Formspree!\n\n1. Acesse formspree.io\n2. Crie um novo form\n3. Substitua 'SEU_ID_AQUI' no index.html pelo ID gerado");
+      return;
+    }*/
 
     btnText.style.display    = "none";
     btnLoading.style.display = "inline";

@@ -204,7 +204,12 @@
             <textarea id="mensagem" name="mensagem" rows="3" placeholder="Alguma informação adicional?"></textarea>
           </div>
           <!-- https://dash.cloudflare.com/ -->
-          <div class="cf-turnstile" data-sitekey="0x4AAAAAADfj9WUEA9RMAdba" data-theme="dark"></div>
+          <div class="cf-turnstile"
+              data-sitekey="0x4AAAAAADfj9WUEA9RMAdba"
+              data-theme="dark"
+              data-callback="onTurnstileSuccess"
+              data-error-callback="onTurnstileError">
+          </div>
           <button type="submit" class="btn-primary btn-full">
             <span class="btn-text">Enviar Desafio ⚽</span>
             <span class="btn-loading" style="display:none">Enviando...</span>
