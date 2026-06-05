@@ -178,16 +178,8 @@
             <div class="info-item">⚽ <span>Futebol Society / Campo</span></div>
           </div>
         </div>
-        <form class="desafio-form" id="desafioForm" action="https://formspree.io/f/SEU_ID_AQUI" method="POST">
-          <!--
-            ╔════════════════════════════════════════════════╗
-            ║  INSTRUÇÕES FORMSPREE (gratuito, sem backend)  ║
-            ║  1. Acesse https://formspree.io e crie conta   ║
-            ║  2. Crie um novo form e copie o ID gerado      ║
-            ║  3. Substitua "SEU_ID_AQUI" pelo seu ID real   ║
-            ║     Ex: action="https://formspree.io/f/xpwzgvkl"║
-            ╚════════════════════════════════════════════════╝
-          -->
+        <form class="desafio-form" id="desafioForm" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="d73ca2c4-67ec-4416-82bc-81881d7ccd48">
           <input type="hidden" name="_subject" value="Novo desafio para o Real Carioca FC!" />
           <input type="hidden" name="_next" value="#obrigado" />
 
@@ -197,7 +189,7 @@
           </div>
           <div class="form-group">
             <label for="telefone">Telefone para contato *</label>
-            <input type="tel" id="telefone" name="telefone" placeholder="(21) 9 0000-0000" required />
+            <input type="tel" id="telefone" name="telefone" placeholder="(21) 90000-0000" required />
           </div>
           <div class="form-group">
             <label for="data">Data desejada *</label>
@@ -211,6 +203,7 @@
             <label for="mensagem">Mensagem (opcional)</label>
             <textarea id="mensagem" name="mensagem" rows="3" placeholder="Alguma informação adicional?"></textarea>
           </div>
+          <!-- https://dash.cloudflare.com/ -->
           <div class="cf-turnstile" data-sitekey="0x4AAAAAADfj9WUEA9RMAdba" data-theme="dark"></div>
           <button type="submit" class="btn-primary btn-full">
             <span class="btn-text">Enviar Desafio ⚽</span>
