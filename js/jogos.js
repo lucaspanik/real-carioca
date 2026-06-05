@@ -29,7 +29,9 @@ const SHEETS_ID = "1uYlVRbzDWqbf826vjgwvsqH-cdsfDcvTNeAyAgyUhgY";
 //  Caso contrário, deixe o array vazio [].
 // ─────────────────────────────────────────────────────────────────
 const FOTOS = [
-  // { src: "img/foto1.jpg", legenda: "Primeiro jogo do Real Carioca" },
+   { src: "img/01.jpg", legenda: "Campeonado aniversário do Max" },
+   { src: "img/02.jpg", legenda: "Troféus do Campeonado aniversário do Max" },
+   { src: "img/03.jpg", legenda: "Jogo contra em Mauá" },
 ];
 
 // ─────────────────────────────────────────────────────────────────
