@@ -356,52 +356,66 @@ async function initAgenda() {
 
 /* ─── FORMULÁRIO ──────────────────────────────────────────── */
 function initForm() {
-  const form      = document.getElementById("desafioForm");
-  const success   = document.getElementById("formSuccess");
-  const btnText   = form.querySelector(".btn-text");
-  const btnLoading= form.querySelector(".btn-loading");
+  const form       = document.getElementById("desafioForm");
+  const success    = document.getElementById("formSuccess");
+  const btnText    = form.querySelector(".btn-text");
+  const btnLoading = form.querySelector(".btn-loading");
 
   const dataInput = document.getElementById("data");
   if (dataInput) dataInput.min = new Date().toISOString().split("T")[0];
 
-  let turnstileOk = false;
+  // Turnstile renderizado manualmente — token fica só no JS, nunca vai pro Web3Forms
+  let turnstileToken = null;
 
-  window.onTurnstileSuccess = () => { turnstileOk = true; };
-  window.onTurnstileError   = () => { turnstileOk = false; };
+  if (window.turnstile) {
+    window.turnstile.render("#turnstile-widget", {
+      sitekey: "0x4AAAAAADfj9WUEA9RMAdba",
+      theme: "dark",
+      callback: (token) => { turnstileToken = token; },
+      "error-callback": () => { turnstileToken = null; },
+      "expired-callback": () => { turnstileToken = null; },
+    });
+  }
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    if (!turnstileOk) {
+    if (!turnstileToken) {
       alert("Por favor, confirme que você não é um robô.");
       return;
     }
 
-    const action = form.getAttribute("action");
-
-    /*if (action.includes("SEU_ID_AQUI")) {
-      alert("⚠️ Configure o Formspree!\n\n1. Acesse formspree.io\n2. Crie um novo form\n3. Substitua 'SEU_ID_AQUI' no index.html pelo ID gerado");
-      return;
-    }*/
-
     btnText.style.display    = "none";
     btnLoading.style.display = "inline";
 
+    // Monta os dados manualmente — SEM incluir o token do Turnstile
+    const payload = {
+      access_key: form.querySelector('[name="access_key"]').value,
+      _subject:   "Novo desafio para o Real Carioca FC!",
+      time:       form.querySelector('[name="time"]').value,
+      telefone:   form.querySelector('[name="telefone"]').value,
+      data:       form.querySelector('[name="data"]').value,
+      campo:      form.querySelector('[name="campo"]').value,
+      mensagem:   form.querySelector('[name="mensagem"]').value,
+    };
+
     try {
-      const resp = await fetch(action, {
+      const resp = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: new FormData(form),
-        headers: { Accept: "application/json" }
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(payload),
       });
-      if (resp.ok) {
-        form.querySelectorAll("input, textarea, button").forEach(el => el.style.display = "none");
+      const result = await resp.json();
+      if (result.success) {
+        form.querySelectorAll("input, textarea, button, .cf-turnstile, #turnstile-widget")
+          .forEach(el => el.style.display = "none");
         form.querySelector(".form-note").style.display = "none";
         success.style.display = "flex";
-      } else throw new Error();
-    } catch {
+      } else throw new Error(result.message);
+    } catch (err) {
       btnText.style.display    = "inline";
       btnLoading.style.display = "none";
-      alert("Erro ao enviar. Tente novamente.");
+      alert("Erro ao enviar. Tente novamente.\n" + err.message);
     }
   });
 }
