@@ -42,4 +42,5 @@ const CONFIG = {
   fundacao:  "2023",
   // Tempo de cache em minutos (evita requisições repetidas)
   cacheTTL:  15,
+  jogosQuantidade: 20, // Quantos jogos mostrar no site
 };

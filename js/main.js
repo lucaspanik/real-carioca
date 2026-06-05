@@ -239,7 +239,7 @@ async function initAgenda() {
     if (SHEETS_ID === "SEU_ID_DA_PLANILHA_AQUI" && jogos.length === 0) {
       grid.innerHTML = "";
       empty.style.display = "block";
-      empty.innerHTML = `⚙️ Configure o <code>SHEETS_ID</code> em <code>js/jogos.js</code> para carregar os jogos da planilha.<br><small>Veja o README.md para instruções.</small>`;
+      empty.innerHTML = `Nenhum jogo encontrado.`;
       return;
     }
   }
@@ -251,17 +251,24 @@ async function initAgenda() {
   function renderJogos(filter) {
     filtroAtivo = filter;
     const filtered = filter === "todos" ? jogos : jogos.filter(j => j.status === filter);
-    filtered.sort((a, b) => new Date(a.data) - new Date(b.data));
+
+    // ordenação por data ASC (do mais próximo ao mais distante)
+    //filtered.sort((a, b) => new Date(a.data) - new Date(b.data));
+
+    // ordenação por data DESC (do mais distante ao mais próximo)
+    filtered.sort((a, b) => new Date(b.data) - new Date(a.data));
+
+    const limitados = filtered.slice(0, CONFIG.jogosQuantidade || 20);
 
     grid.innerHTML = "";
 
-    if (filtered.length === 0) {
+    if (limitados.length === 0) {
       empty.style.display = "block";
       return;
     }
     empty.style.display = "none";
 
-    filtered.forEach((jogo, idx) => {
+    limitados.forEach((jogo, idx) => {
       const dataObj  = new Date(jogo.data + "T" + (jogo.hora || "00:00") + ":00");
       const hoje     = new Date();
       const isFuturo = dataObj >= hoje;
@@ -282,7 +289,7 @@ async function initAgenda() {
           const rLabel   = ganhou ? "Vitória" : empatou ? "Empate" : "Derrota";
           placarHTML = `
             <div class="placar ${rClass}">
-              <span class="placar-times">RC <strong>${jogo.placarCasa} × ${jogo.placarVisitante}</strong> ${jogo.adversario}</span>
+              <span class="placar-times">${CONFIG.nomeTime} <strong>${jogo.placarCasa} × ${jogo.placarVisitante}</strong> ${jogo.adversario}</span>
               <span class="placar-resultado">${rLabel}</span>
             </div>`;
         }
@@ -304,7 +311,7 @@ async function initAgenda() {
         </div>
         <div class="jogo-info">
           <div class="jogo-header">
-            <span class="jogo-vs">Real Carioca <em>vs</em> ${jogo.adversario}</span>
+            <span class="jogo-vs">${CONFIG.nomeTime} <em>vs</em> ${jogo.adversario}</span>
             <span class="jogo-status ${statusClass}">${statusLabel}</span>
           </div>
           <div class="jogo-detalhes">
