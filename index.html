@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real Carioca FC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════ NAV ═══════════════════════════════ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <img src="img/escudo.png" alt="Real Carioca FC" id="nav-escudo" onerror="this.style.display='none'; document.getElementById('nav-logo-text').style.display='block'" />
+        <span id="nav-logo-text" style="display:none">RC</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#historia">História</a></li>
+        <li><a href="#galeria">Galeria</a></li>
+        <li><a href="#agenda">Agenda</a></li>
+        <li><a href="#desafio" class="nav-cta">Desafiar</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+  <header id="hero">
+    <div class="hero-bg">
+      <div class="hero-grass"></div>
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-sub">Condomínio Maravilha Carioca · Bonsucesso · RJ</p>
+      <div class="hero-escudo-wrap">
+        <img src="img/escudo.png" alt="Escudo Real Carioca" class="hero-escudo" onerror="this.style.display='none'; document.querySelector('.hero-escudo-placeholder').style.display='flex'" />
+        <div class="hero-escudo-placeholder">
+          <span>RC</span>
+        </div>
+      </div>
+      <h1 class="hero-title">REAL<br/><em>CARIOCA</em></h1>
+      <p class="hero-tagline">Nascido nas festas. Forjado no campo.</p>
+      <a href="#agenda" class="btn-primary">Ver Agenda de Jogos</a>
+    </div>
+    <div class="scroll-hint">
+      <span>↓</span>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════ HISTÓRIA ═══════════════════════════ -->
+  <section id="historia">
+    <div class="container">
+      <div class="section-label">Nossa História</div>
+      <div class="historia-grid">
+        <div class="historia-text">
+          <h2>De vizinhos a<br/><em>companheiros de campo</em></h2>
+          <p>
+            Tudo começou nas festas do <strong>Condomínio Maravilha Carioca</strong>, no coração de Bonsucesso, Rio de Janeiro. Entre uma risada e outra, os moradores perceberam que tinham algo em comum além do endereço: a paixão pelo futebol.
+          </p>
+          <p>
+            Foi assim que nasceu o <strong>Real Carioca FC</strong> — um time que carrega no nome a grandeza do futebol espanhol e a alma irreverente do carioca. Nossas cores, inspiradas no imponente <em>Real Madrid</em>, representam a ambição de jogar bom futebol, independentemente do campo ou do adversário.
+          </p>
+          <p>
+            De peladas informais a uma agenda cheia de desafios, o Real Carioca cresceu. Hoje, somos um time de verdade, com história, identidade e muito orgulho de onde viemos.
+          </p>
+          <div class="historia-stats">
+            <div class="stat"><span class="stat-num" data-target="2023">2023</span><span class="stat-label">Fundação</span></div>
+            <div class="stat"><span class="stat-num" id="jogos-count">0</span><span class="stat-label">Jogos marcados</span></div>
+            <div class="stat"><span class="stat-num">1</span><span class="stat-label">Condomínio unido</span></div>
+          </div>
+        </div>
+        <div class="historia-visual">
+          <div class="kit-display">
+            <div class="kit kit-branco">
+              <div class="kit-shirt white-kit">
+                <div class="kit-crest">RC</div>
+              </div>
+              <span>Uniforme Principal</span>
+            </div>
+            <div class="kit kit-azul">
+              <div class="kit-shirt blue-kit">
+                <div class="kit-crest">RC</div>
+              </div>
+              <span>Uniforme Alternativo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ GALERIA ═══════════════════════════ -->
+  <section id="galeria">
+    <div class="container">
+      <div class="section-label">Galeria</div>
+      <h2>Momentos <em>inesquecíveis</em></h2>
+    </div>
+    <div class="carousel-wrap">
+      <div class="carousel" id="carousel">
+        <!-- Placeholders — substituir pelas fotos reais -->
+        <div class="slide slide-placeholder">
+          <div class="placeholder-content">
+            <span class="ph-icon">⚽</span>
+            <p>Adicione suas fotos aqui</p>
+            <small>Substitua os placeholders em js/jogos.js</small>
+          </div>
+        </div>
+        <div class="slide slide-placeholder">
+          <div class="placeholder-content">
+            <span class="ph-icon">🏆</span>
+            <p>Celebrações do time</p>
+          </div>
+        </div>
+        <div class="slide slide-placeholder">
+          <div class="placeholder-content">
+            <span class="ph-icon">👕</span>
+            <p>Os uniformes em ação</p>
+          </div>
+        </div>
+        <div class="slide slide-placeholder">
+          <div class="placeholder-content">
+            <span class="ph-icon">🤝</span>
+            <p>Momentos de confraternização</p>
+          </div>
+        </div>
+        <div class="slide slide-placeholder">
+          <div class="placeholder-content">
+            <span class="ph-icon">📍</span>
+            <p>Os campos da nossa história</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-btn prev" id="prevBtn">&#8592;</button>
+      <button class="carousel-btn next" id="nextBtn">&#8594;</button>
+      <div class="carousel-dots" id="carouselDots"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ AGENDA ═══════════════════════════ -->
+  <section id="agenda">
+    <div class="container">
+      <div class="section-label">Agenda</div>
+      <h2>Próximos <em>Jogos</em></h2>
+      <div class="agenda-filters">
+        <button class="filter-btn active" data-filter="todos">Todos</button>
+        <button class="filter-btn" data-filter="agendado">Agendados</button>
+        <button class="filter-btn" data-filter="realizado">Realizados</button>
+      </div>
+      <div class="jogos-grid" id="jogosGrid">
+        <!-- Preenchido pelo JS -->
+      </div>
+      <p class="agenda-empty" id="agendaEmpty" style="display:none">Nenhum jogo encontrado nessa categoria.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ DESAFIO ═══════════════════════════ -->
+  <section id="desafio">
+    <div class="container">
+      <div class="desafio-inner">
+        <div class="desafio-text">
+          <div class="section-label">Quer jogar contra a gente?</div>
+          <h2>Mande seu<br/><em>Desafio</em></h2>
+          <p>Preencha o formulário ao lado e entraremos em contato para confirmar a partida. Estamos sempre prontos para um bom jogo!</p>
+          <div class="desafio-info">
+            <div class="info-item">📍 <span>Bonsucesso, Rio de Janeiro</span></div>
+            <div class="info-item">⚽ <span>Futebol Society / Campo</span></div>
+          </div>
+        </div>
+        <form class="desafio-form" id="desafioForm" action="https://formspree.io/f/SEU_ID_AQUI" method="POST">
+          <!--
+            ╔════════════════════════════════════════════════╗
+            ║  INSTRUÇÕES FORMSPREE (gratuito, sem backend)  ║
+            ║  1. Acesse https://formspree.io e crie conta   ║
+            ║  2. Crie um novo form e copie o ID gerado      ║
+            ║  3. Substitua "SEU_ID_AQUI" pelo seu ID real   ║
+            ║     Ex: action="https://formspree.io/f/xpwzgvkl"║
+            ╚════════════════════════════════════════════════╝
+          -->
+          <input type="hidden" name="_subject" value="Novo desafio para o Real Carioca FC!" />
+          <input type="hidden" name="_next" value="#obrigado" />
+
+          <div class="form-group">
+            <label for="time">Nome do seu time *</label>
+            <input type="text" id="time" name="time" placeholder="Ex: Unidos do Méier" required />
+          </div>
+          <div class="form-group">
+            <label for="telefone">Telefone para contato *</label>
+            <input type="tel" id="telefone" name="telefone" placeholder="(21) 9 0000-0000" required />
+          </div>
+          <div class="form-group">
+            <label for="data">Data desejada *</label>
+            <input type="date" id="data" name="data" required />
+          </div>
+          <div class="form-group">
+            <label for="campo">Campo sugerido</label>
+            <input type="text" id="campo" name="campo" placeholder="Nome ou endereço do campo" />
+          </div>
+          <div class="form-group">
+            <label for="mensagem">Mensagem (opcional)</label>
+            <textarea id="mensagem" name="mensagem" rows="3" placeholder="Alguma informação adicional?"></textarea>
+          </div>
+          <button type="submit" class="btn-primary btn-full">
+            <span class="btn-text">Enviar Desafio ⚽</span>
+            <span class="btn-loading" style="display:none">Enviando...</span>
+          </button>
+          <p class="form-note">Entraremos em contato pelo telefone informado para confirmar o jogo.</p>
+
+          <!-- Mensagem de sucesso (aparece após envio) -->
+          <div class="form-success" id="formSuccess" style="display:none">
+            <span>🏆</span>
+            <strong>Desafio recebido!</strong>
+            <p>Entraremos em contato em breve para confirmar o jogo. Boa sorte... vai precisar! 😄</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ FOOTER ═══════════════════════════ -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <img src="img/escudo.png" alt="Real Carioca" class="footer-escudo" onerror="this.style.display='none'" />
+          <div>
+            <strong>Real Carioca FC</strong>
+            <span>Condomínio Maravilha Carioca · Bonsucesso · RJ</span>
+          </div>
+        </div>
+        <p class="footer-copy">© 2024 Real Carioca FC · Feito com ❤️ no Maravilha Carioca</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/jogos.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
