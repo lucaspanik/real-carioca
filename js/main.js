@@ -3,6 +3,11 @@
    Agenda integrada com Google Sheets (sem backend)
    ═══════════════════════════════════════════════════════════ */
 
+// Callbacks do Turnstile — devem ser globais e carregar antes do widget
+window.onTurnstileSuccess = (token) => { window._turnstileToken = token; };
+window.onTurnstileError   = ()      => { window._turnstileToken = null; };
+window.onTurnstileExpired = ()      => { window._turnstileToken = null; };
+
 document.addEventListener("DOMContentLoaded", () => {
   initNav();
   initHero();
@@ -367,20 +372,15 @@ function initForm() {
   const btnLoading = form.querySelector(".btn-loading");
 
   const dataInput = document.getElementById("data");
-  if (dataInput) dataInput.min = new Date().toISOString().split("T")[0];
-
-  // Token do Turnstile — preenchido pelo callback após validação humana
-  let turnstileToken = null;
-
-  window.onTurnstileSuccess = (token) => { turnstileToken = token; };
-  window.onTurnstileError   = ()      => { turnstileToken = null; };
-  window.onTurnstileExpired = ()      => { turnstileToken = null; };
+  if (dataInput) {
+    dataInput.min = new Date().toISOString().split("T")[0];
+  }
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     // Bloqueia se o Turnstile ainda não validou
-    if (!turnstileToken) {
+    if (!window._turnstileToken) {
       alert("Por favor, confirme que você não é um robô.");
       return;
     }
@@ -394,7 +394,7 @@ function initForm() {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
-          turnstileToken,
+          turnstileToken: window._turnstileToken,
           time:     form.querySelector('[name="time"]').value,
           telefone: form.querySelector('[name="telefone"]').value,
           data:     form.querySelector('[name="data"]').value,
