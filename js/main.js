@@ -355,6 +355,11 @@ async function initAgenda() {
 }
 
 /* ─── FORMULÁRIO ──────────────────────────────────────────── */
+
+// URL do Cloudflare Worker — substitua após o deploy
+const WORKER_URL = "https://real-carioca-form.timerealcarioca.workers.dev";
+// Exemplo: "https://real-carioca-form.seuusuario.workers.dev"
+
 function initForm() {
   const form       = document.getElementById("desafioForm");
   const success    = document.getElementById("formSuccess");
@@ -364,22 +369,17 @@ function initForm() {
   const dataInput = document.getElementById("data");
   if (dataInput) dataInput.min = new Date().toISOString().split("T")[0];
 
-  // Turnstile renderizado manualmente — token fica só no JS, nunca vai pro Web3Forms
+  // Token do Turnstile — preenchido pelo callback após validação humana
   let turnstileToken = null;
 
-  if (window.turnstile) {
-    window.turnstile.render("#turnstile-widget", {
-      sitekey: "0x4AAAAAADfj9WUEA9RMAdba",
-      theme: "dark",
-      callback: (token) => { turnstileToken = token; },
-      "error-callback": () => { turnstileToken = null; },
-      "expired-callback": () => { turnstileToken = null; },
-    });
-  }
+  window.onTurnstileSuccess = (token) => { turnstileToken = token; };
+  window.onTurnstileError   = ()      => { turnstileToken = null; };
+  window.onTurnstileExpired = ()      => { turnstileToken = null; };
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    // Bloqueia se o Turnstile ainda não validou
     if (!turnstileToken) {
       alert("Por favor, confirme que você não é um robô.");
       return;
@@ -388,30 +388,31 @@ function initForm() {
     btnText.style.display    = "none";
     btnLoading.style.display = "inline";
 
-    // Monta os dados manualmente — SEM incluir o token do Turnstile
-    const payload = {
-      access_key: form.querySelector('[name="access_key"]').value,
-      _subject:   "Novo desafio para o Real Carioca FC!",
-      time:       form.querySelector('[name="time"]').value,
-      telefone:   form.querySelector('[name="telefone"]').value,
-      data:       form.querySelector('[name="data"]').value,
-      campo:      form.querySelector('[name="campo"]').value,
-      mensagem:   form.querySelector('[name="mensagem"]').value,
-    };
-
     try {
-      const resp = await fetch("https://api.web3forms.com/submit", {
+      // Envia JSON para o Worker — token incluído para validação server-side
+      const resp = await fetch(WORKER_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          turnstileToken,
+          time:     form.querySelector('[name="time"]').value,
+          telefone: form.querySelector('[name="telefone"]').value,
+          data:     form.querySelector('[name="data"]').value,
+          campo:    form.querySelector('[name="campo"]').value,
+          mensagem: form.querySelector('[name="mensagem"]').value,
+        }),
       });
+
       const result = await resp.json();
+
       if (result.success) {
-        form.querySelectorAll("input, textarea, button, .cf-turnstile, #turnstile-widget")
-          .forEach(el => el.style.display = "none");
+        form.querySelectorAll("input, textarea, button, .form-group, .cf-turnstile").forEach(el => el.style.display = "none");
+
         form.querySelector(".form-note").style.display = "none";
         success.style.display = "flex";
-      } else throw new Error(result.message);
+      } else {
+        throw new Error(result.error || "Erro desconhecido");
+      }
     } catch (err) {
       btnText.style.display    = "inline";
       btnLoading.style.display = "none";
